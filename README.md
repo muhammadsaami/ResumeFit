@@ -9,6 +9,10 @@ Everything runs locally. There is **no external LLM and no paid service**: parsi
 auto-fixes, the fabrication guard and job matching are all rules and curated taxonomies you can
 read in the source. Scores are an **estimate of ATS readiness**, not a guarantee of how any
 commercial ATS will rank you, and the UI says so.
+## Dashboard Preview
+
+![ResumeFit Dashboard](Screenshots/resumefit-dashboard.png)
+
 
 ## What works
 

@@ -1,0 +1,37 @@
+<%
+macro section(title)
+%>\section*{<< title | tex >>}
+
+<%
+endmacro
+%>
+<%
+macro contact(items)
+%><% for item in items %><% if not loop.first %> \textbar{} <% endif %><% if item["url"] %>\href{<< item["url"] | url >>}{<< item["value"] | tex >>}<% else %><< item["value"] | tex >><% endif %><% endfor %><%
+endmacro
+%>
+<%
+macro entry(title, subtitle, dates)
+%>\noindent\textbf{<< title | tex >>}<% if subtitle %> \textbar{} << subtitle | tex >><% endif %><% if dates %>\hfill \textit{<< dates | tex >>}<% endif %>
+
+<%
+endmacro
+%>
+<%
+macro bullets(items, sep)
+%>\begin{itemize}[label=\textbullet{},leftmargin=1.1em,itemsep=<< sep >>,topsep=0.1em,parsep=0pt]
+<% for item in items %>
+\item << item | tex >>
+<% endfor %>
+\end{itemize}
+
+<%
+endmacro
+%>
+<%
+macro skillline(label, value)
+%>\noindent\textbf{<< label | tex >>:}~<< value | tex >>\\
+
+<%
+endmacro
+%>

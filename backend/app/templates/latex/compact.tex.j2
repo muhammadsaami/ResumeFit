@@ -1,0 +1,99 @@
+<% import "_macros.tex.j2" as m %>
+
+\documentclass[10pt,letterpaper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{textcomp}
+\usepackage{cmap}
+\usepackage[letterpaper,margin=1.4cm]{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage[hyphens]{url}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{accent}{HTML}{2B2B2B}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\baselineskip}{11pt}
+
+% Prevent overfull boxes from clipping long lines; allow graceful re-wrapping.
+\tolerance=2000
+\emergencystretch=2em
+\hbadness=4000
+% Never hyphenate words. Splitting tokens like "PostgreSQL" across lines
+% corrupts the extracted text and looks unprofessional in a resume.
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\urlstyle{same}
+\Urlmuskip=0mu plus 1mu
+\raggedbottom
+\clubpenalty=10000
+
+\titleformat{\section}{\small\bfseries\color{accent}}{}{0em}{\MakeUppercase}[\vspace{-0.4em}\rule{\textwidth}{0.4pt}]
+\titlespacing*{\section}{0pt}{0.75em}{0.2em}
+
+\hypersetup{
+  pdftitle={<< pdf_title | pdftex >>},
+  pdfauthor={<< pdf_author | pdftex >>},
+  pdfsubject={Resume},
+  pdfcreator={ResumeFit},
+  hidelinks,
+}
+
+\begin{document}
+
+\begin{center}
+  {\large\bfseries << name | tex >>}\\[0.15em]
+  << m.contact(contact) >>
+\end{center}
+
+<% if has_summary %>
+<< m.section("Summary") >>
+<< summary | tex >>
+
+<% endif %>
+
+<% if has_education %>
+<< m.section("Education") >>
+<% for e in education %>
+<< m.entry(e.title, e.subtitle, e.dates) >>
+<% if e.score %>    \textit{<< e.score | tex >>}\
+
+<% endif %><% endfor %>
+<% endif %>
+
+<% if has_experience %>
+<< m.section("Experience") >>
+<% for e in experience %>
+<< m.entry(e.title, e.subtitle, e.dates) >>
+<< m.bullets(e.bullets, "1pt") >>
+<% endfor %>
+<% endif %>
+
+<% if has_projects %>
+<< m.section("Projects") >>
+<% for p in projects %>
+<< m.entry(p.title, p.subtitle, None) >>
+<< m.bullets(p.bullets, "1pt") >>
+<% endfor %>
+<% endif %>
+
+<% if has_certifications %>
+<< m.section("Certifications") >>
+<< m.bullets(certifications, "0pt") >>
+<% endif %>
+
+<% if has_skills %>
+<< m.section("Skills") >>
+<% for line in skills_lines %>
+<< m.skillline(line.label, line.value) >>
+<% endfor %>
+<% endif %>
+
+\end{document}
